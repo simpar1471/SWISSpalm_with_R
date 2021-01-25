@@ -165,3 +165,5 @@ results <- read.table(file.path("data","SWISSpalm_outputs","query_result.txt"),
                       sep = "\t",
                       header = TRUE) 
 ```
+## Issues/Bug Reports/Requests
+If you have any problems, drop them on the [issues page](https://github.com/simpar1471/SWISSpalm_with_R/issues).
