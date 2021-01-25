@@ -166,4 +166,4 @@ results <- read.table(file.path("data","SWISSpalm_outputs","query_result.txt"),
                       header = TRUE) 
 ```
 ## Issues/Bug Reports/Requests
-If you have any problems, drop them on the [issues page](https://github.com/simpar1471/SWISSpalm_with_R/issues).
+If you have any problems, drop them on the [issues page](https://github.com/simpar1471/SWISSpalm_with_R/issues). This script was written on Windows, so it's posible that there are some incompatibilities with Linux/Mac OS.
