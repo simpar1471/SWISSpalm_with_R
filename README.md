@@ -12,7 +12,7 @@ Java must be installed from the [Oracle website](https://www.java.com/en/downloa
 ### <b>Step 2:</b> 
 Run the `SWISSpalm_with_R.R` script in your instance of R to load its functions.
 ### <b>Step 3:</b>
-Now you are ready to use the `getSWISSPalmData()` command. If you've not run RSelenium before, this will take longer the first time you use it. This is because RSelenium downloads new versions of chromedriver and the Selenium Server when required. Subsequent calls should take less time, but timing can be tweaked by editing the calls to `Sys.sleep()` in the funciton. You may get errors if you go for timings that are too small, as the webpage should finish loading before any elements are searched for. The syntax is as follows:
+Now you are ready to use the `getSWISSPalmData()` command. If you've not run RSelenium before, this will take longer the first time you use it. This is because RSelenium downloads new versions of chromedriver and the Selenium Server when first run, and if it finds any updates to these components. Subsequent calls should take less time, but timing can be tweaked by editing the function's `Sys.sleep()` calls. You may get errors if you go for timings that are too small, as the webpage should finish loading before any elements are searched for. The syntax is as follows:
 ```R
 getSWISSPalmData(input.path, output.directory, dataset.value = 1, species.value = 2, output.type = "download_text")
 ```
