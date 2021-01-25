@@ -1,12 +1,10 @@
-# Title     : SWISSpalm with RSelenium
-# Created by: Simon Parker
-# Created on: 23/01/2021
-
-# SwissPalm: Protein Palmitoylation database. Mathieu Blanc*, Fabrice P.A. David*, Laurence Abrami, Daniel Migliozzi, Florence Armand, Jérôme Burgi and F. Gisou van der Goot. F1000Research.
+# Accesses https://swisspalm.org/. Citation for SWISSpalm DB: SwissPalm: Protein Palmitoylation database. Mathieu Blanc*, Fabrice P.A. David*,
+# Laurence Abrami, Daniel Migliozzi, Florence Armand, Jérôme Burgi and F. Gisou van der Goot. F1000Research.
 
 # Load required packages
 
-library(RSelenium, glue)
+library(RSelenium)
+library(glue)
 
 # The generatePath() function ----
 
@@ -19,6 +17,8 @@ generatePath <- function(path)
   print(newpath)
   return(newpath)
 }
+
+# The getSWISSpalmData function ----
 
 getSWISSpalmData <- function(input.path, output.directory, dataset.value = 1, species.value = 1, output.type = "download_text")
 {
@@ -70,20 +70,24 @@ getSWISSpalmData <- function(input.path, output.directory, dataset.value = 1, sp
   SWISSpalm_driver$findElement(using = "id", value = "btn-list_not_found")$clickElement()
 
   Sys.sleep(time = 5) # Give the server a break
-  # Download our output text file with all the juicy stuff #
-  ouput_type <- output.type
-  download_button <- SWISSpalm_driver$findElement(using = "id", value = glue("{output_type}"))
+
+  # Download our output file  #
+  output_type <- output.type
+  download_button <- SWISSpalm_driver$findElement(using = "id", value = output_type)
   download_button$clickElement()
   Sys.sleep(time = 10) # Give time for the download
 
-  # Kill Selenium and Java objects #
+  # Kill Selenium and Java #
   rm(elem_nf_in_db, elem_nf_in_ds, download_button, search_button, species)
   SWISSpalm_driver$close()
-  rm(SWISSpalm_driver)
   rsdriver$server$stop()
-  rm(rsdriver)
   system("taskkill /im java.exe /f", intern = FALSE, ignore.stdout = FALSE)
-
-  write(not_found_in_database, file.path("data","SWISSpalm","SWISSpalm_outputs","not_in_database.txt"))
-  write(not_found_in_dataset, file.path("data","SWISSpalm","SWISSpalm_outputs","not_in_dataset.txt"))
+  
+  # Output additional dataset/database .txt files
+  nf_in_db_path <- gsub("/", "\\", glue("{download_dir}/not_found_in_db.txt"), fixed = TRUE)
+  print(nf_in_db_path)
+  write(not_found_in_database, nf_in_db_path)
+  nf_in_ds_path <- gsub("/", "\\", glue("{download_dir}/not_found_in_ds.txt"), fixed = TRUE)
+  print(nf_in_ds_path)
+  write(not_found_in_dataset, nf_in_ds_path)
 }
