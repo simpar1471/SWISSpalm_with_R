@@ -144,7 +144,7 @@ Where:<br>
 ### <b>Step 4:</b>
 To use the files you've received, you need to know what each file contains.
 * `not_in_database.txt` contains each gene ID not found in the SWISSpalm database.
-* `not_in_dataset.txt` contains each gene ID not found in the SWISSpalm database.
+* `not_in_dataset.txt` contains each gene ID not found in the dataset you've used.
 * `query_results.txt` contains palmitoylation data of your genes that SWISSpalm analysed. 
 ## Example
 ```R
