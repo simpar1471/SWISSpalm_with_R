@@ -20,7 +20,7 @@ generatePath <- function(path)
   return(newpath)
 }
 
-getSWISSpalmData <- function(input.path, output.directory, dataset.value = 1, species.value = 2, output.type = "download_text")
+getSWISSpalmData <- function(input.path, output.directory, dataset.value = 1, species.value = 1, output.type = "download_text")
 {
   input_path <- generatePath(input.path)
   download_dir <- generatePath(output.directory)
@@ -86,5 +86,4 @@ getSWISSpalmData <- function(input.path, output.directory, dataset.value = 1, sp
 
   write(not_found_in_database, file.path("data","SWISSpalm","SWISSpalm_outputs","not_in_database.txt"))
   write(not_found_in_dataset, file.path("data","SWISSpalm","SWISSpalm_outputs","not_in_dataset.txt"))
-  return(not_found)
 }
