@@ -10,7 +10,7 @@ install.packages("RSelenium")
 ```
 Java must be installed from the [Oracle website](https://www.java.com/en/download/).
 ### <b>Step 2:</b> 
-Run the `SWISSpalm_with_R.R` script in your instance of R to load its functions into your environment.
+Run the `SWISSpalm_with_R.R` script in your instance of R to load its functions.
 ### <b>Step 3:</b>
 Now you are ready to use the `getSWISSPalmData()` command. This will take longer the first time you use it, as RSelenium downloads new versions of chromedriver and the Selenium Server. as needs be. Subsequent calls should take less time, but are limited by the calls to `Sys.sleep()` which allow webpages to load/downloads to occur. The syntax is as follows:
 ```R
