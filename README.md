@@ -167,3 +167,9 @@ results <- read.table(file.path("data","SWISSpalm_outputs","query_result.txt"),
 ```
 ## Issues/Bug Reports/Requests
 If you have any problems, drop them on the [issues page](https://github.com/simpar1471/SWISSpalm_with_R/issues). This script was written on Windows, so it's posible that there are some incompatibilities with Linux/Mac OS.
+### Some Errors and their Fixes </br>
+If the function encounters an error, Selenium will not reinitialise as its default port will still be in use by the old instance of Selenium. This will trigger the error message `Selenium server signals port = [yourport] is already in use.` In this case, run the command:
+``` R
+system("taskkill /im java.exe /f", intern = FALSE, ignore.stdout = FALSE)
+```
+If `getSWISSpalmData()` returns an error such as `Undefined error in httr call. httr output: length(url) == 1 is not TRUE`, as it did on my laptop, [update your Chrome installation](https://support.google.com/chrome/answer/95414).
