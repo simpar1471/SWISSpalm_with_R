@@ -16,7 +16,7 @@ Now you are ready to use the `getSWISSPalmData()` command. If you've not run RSe
 ```R
 getSWISSPalmData(input.path, output.directory, dataset.value = 1, species.value = 2, output.type = "download_text")
 ```
-Where:<br>
+#### What do the parameters mean?
 <b>input.path</b> = The file path of the text file you're submitting to SWISSpalm. This is best set in R using `file.path()`. The input .txt file must follow these [formatting guidelines](https://swisspalm.org/file_formats). I would advise not including a header. Each line must have one identifier of the following types given below:
   <details>  
     <summary>List of valid identifiers</summary><p>
