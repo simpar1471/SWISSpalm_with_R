@@ -85,9 +85,7 @@ getSWISSpalmData <- function(input.path, output.directory, dataset.value = 1, sp
   
   # Output additional dataset/database .txt files
   nf_in_db_path <- gsub("/", "\\", glue("{download_dir}/not_found_in_db.txt"), fixed = TRUE)
-  print(nf_in_db_path)
   write(not_found_in_database, nf_in_db_path)
   nf_in_ds_path <- gsub("/", "\\", glue("{download_dir}/not_found_in_ds.txt"), fixed = TRUE)
-  print(nf_in_ds_path)
   write(not_found_in_dataset, nf_in_ds_path)
 }
