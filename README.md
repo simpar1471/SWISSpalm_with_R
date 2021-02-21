@@ -172,4 +172,4 @@ If the function encounters an error, Selenium will not reinitialise as its defau
 ``` R
 system("taskkill /im java.exe /f", intern = FALSE, ignore.stdout = FALSE)
 ```
-If `getSWISSpalmData()` returns an error such as `Undefined error in httr call. httr output: length(url) == 1 is not TRUE`, as it did on my laptop, [update your Chrome installation](https://support.google.com/chrome/answer/95414).
+If `getSWISSpalmData()` returns an error such as `Undefined error in httr call. httr output: length(url) == 1 is not TRUE`, as it did on my laptop, [update your Chrome installation](https://support.google.com/chrome/answer/95414). If this does not work, run the command `binman::list_versions("chromedriver")`. This will output some Chrome versions that can be entered into the `chromever` parameter in the `rsDriver()` command.
