@@ -53,39 +53,57 @@ getSWISSpalmData <- function(input.path, output.directory, dataset.value = 1, sp
 
   Sys.sleep(time = 10) # Wait for results to load
 
-  # Extract list of symbols not found in database #
-  SWISSpalm_driver$findElement(using = "id", value = "btn-list_not_found_at_all")$clickElement()
-  Sys.sleep(time = 0.5)
-  elem_nf_in_db <- SWISSpalm_driver$findElement(using = "id", value = "list_not_found_at_all")
-  not_found_in_database <- elem_nf_in_db$getElementText()[[1]]
-  Sys.sleep(time = 0.05)
-  SWISSpalm_driver$findElement(using = "id", value = "btn-list_not_found_at_all")$clickElement()
+  # Extract list of symbols not found in database IF PRESENT #
+  nf_in_db <- SWISSpalm_driver$findElements(using = "id", value = "btn-list_not_found_at_all")
+  if(length(nf_in_db))
+  {
+    print("Retrieving symbols not in database")
+    SWISSpalm_driver$findElement(using = "id", value = "btn-list_not_found_at_all")$clickElement()
+    Sys.sleep(time = 0.5)
+    elem_nf_in_db <- SWISSpalm_driver$findElement(using = "id", value = "list_not_found_at_all")
+    not_found_in_database <- elem_nf_in_db$getElementText()[[1]]
+    Sys.sleep(time = 0.05)
+    SWISSpalm_driver$findElement(using = "id", value = "btn-list_not_found_at_all")$clickElement()
+  }
 
-  # Extract list of symbols not identified in dataset #
-  SWISSpalm_driver$findElement(using = "id", value = "btn-list_not_found")$clickElement()
-  Sys.sleep(time = 0.5)
-  elem_nf_in_ds <- SWISSpalm_driver$findElement(using = "id", value = "list_not_found")
-  not_found_in_dataset <- elem_nf_in_ds$getElementText()[[1]]
-  Sys.sleep(time = 0.05)
-  SWISSpalm_driver$findElement(using = "id", value = "btn-list_not_found")$clickElement()
+  # Extract list of symbols not identified in dataset IF PRESENT #
+  nf_in_ds <- SWISSpalm_driver$findElements(using = "id", value = "btn-list_not_found")
+  if(length(nf_in_ds))
+  {
+    print("Retrieving symbols not in dataset")
+    SWISSpalm_driver$findElement(using = "id", value = "btn-list_not_found")$clickElement()
+    Sys.sleep(time = 0.5)
+    elem_nf_in_ds <- SWISSpalm_driver$findElement(using = "id", value = "list_not_found")
+    not_found_in_dataset <- elem_nf_in_ds$getElementText()[[1]]
+    Sys.sleep(time = 0.05)
+    SWISSpalm_driver$findElement(using = "id", value = "btn-list_not_found")$clickElement()
+  }
 
   Sys.sleep(time = 5) # Give the server a break
 
-  # Download our output file  #
+  # Download output file  #
   output_type <- output.type
   download_button <- SWISSpalm_driver$findElement(using = "id", value = output_type)
   download_button$clickElement()
   Sys.sleep(time = 10) # Give time for the download
 
-  # Kill Selenium and Java #
-  rm(elem_nf_in_db, elem_nf_in_ds, download_button, search_button, species)
+  # Kill Selenium and Java objects #
   SWISSpalm_driver$close()
+  rm(SWISSpalm_driver)
   rsdriver$server$stop()
+  rm(rsdriver)
   system("taskkill /im java.exe /f", intern = FALSE, ignore.stdout = FALSE)
-  
-  # Output additional dataset/database .txt files
-  nf_in_db_path <- gsub("/", "\\", glue("{download_dir}/not_found_in_db.txt"), fixed = TRUE)
-  write(not_found_in_database, nf_in_db_path)
-  nf_in_ds_path <- gsub("/", "\\", glue("{download_dir}/not_found_in_ds.txt"), fixed = TRUE)
-  write(not_found_in_dataset, nf_in_ds_path)
+
+  if(length(nf_in_db))
+  {
+    nf_in_db_path <- gsub("/", "\\", glue("{download_dir}/not_found_in_db.txt"), fixed = TRUE)
+    print(nf_in_db_path)
+    write(not_found_in_database, nf_in_db_path)
+  }
+  if(length(nf_in_ds))
+  {
+    nf_in_ds_path <- gsub("/", "\\", glue("{download_dir}/not_found_in_ds.txt"), fixed = TRUE)
+    print(nf_in_ds_path)
+    write(not_found_in_dataset, nf_in_ds_path)
+  }
 }
